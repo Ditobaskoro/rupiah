@@ -16,17 +16,18 @@ export default class Main extends React.Component {
   onChange = (event) => {
     //validation
     const input = event.target.value;
-    const validate =  /^(rp|rp\s)?\d{1,3}(?:\.\d{3})+(\,0{0,2})?$|^(rp|rp\s)?\d+$/gi;
-    let error = validate.test(input) ? '' : 'Format Invalid';
-    error = input.toUpperCase().trim() == 'RP' ? 'Missing Value' : ''; 
+    const validate = /(?=.*\d)^(rp|rp\s)?(([1-9]\d{0,2}(\.\d{3})*)|\d+)?(,0{2})?$/i;
+    let error = validate.test(input) || input == '' ? '' : 'Format Invalid';
+
+    // console.log('test',validate.test(input));
     let number = null;
     //parsing
-    if(error ==''){
+    if(error === ''){
       const parse = parseInt(input.replace(/,.*|[^0-9]/g, ''), 10)
       number = parse? parse: 0;
-      error = number == 0  ? 'Please input number more than 0' : '';
+      error = number == 0  && input !== '' ? 'Please input value more than 0' : '';
     }
-    
+    error = input.toUpperCase().trim() == 'RP' ? 'Missing Value' : error;
     this.setState({input, error, number});
   }
   convert = (event) =>{
@@ -53,7 +54,7 @@ export default class Main extends React.Component {
         arr.push(`${x} x Rp${fractions[i]}`);
       }
     }
-    if(sum !== 0){
+    if(sum !== 0 && sum !== null){
       arr.push(`Rp${sum} left`)
     }
     this.setState({converting: false, arr})
@@ -62,20 +63,20 @@ export default class Main extends React.Component {
     const {input, error, arr, converting} = this.state;
     return (
       <form className="main-form" onSubmit={(e) => this.convert(e)}>
-        <p>test</p>
+        <h1 className="main-title">RUPIAH CONVERTER</h1>
         <InputText
             onChange={this.onChange}
             value={input}
-            placeHolder="Input Here"
+            placeHolder="Input Value Here"
           />
-          <p style={{color:'red'}}>{error}</p>
+          <p style={{color: 'white'}}>{error}</p>
           <input
             type="submit"
             disabled={converting}
             value="Convert"
-            className="btn btn-primary center-block"/>
+            className="btn btn-primary main-button"/>
             {arr.map((list,i) => {
-              return <p key={i}>{list}</p>
+              return <p key={i} className="fractions">{list}</p>
             })}
       </form>
     );
