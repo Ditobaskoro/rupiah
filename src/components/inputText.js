@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InputText = ({value, onChange, placeHolder}) => {
+const InputText = ({value, onChange, placeHolder, maxLen}) => {
   return (
     <input
           type="text"
@@ -9,6 +9,7 @@ const InputText = ({value, onChange, placeHolder}) => {
           onChange={onChange}
           value={value}
           placeholder={placeHolder}
+          maxLength={maxLen}
           />
   );
 };
