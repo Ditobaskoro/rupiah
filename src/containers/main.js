@@ -10,7 +10,7 @@ export default class Main extends React.Component {
         number: 0,
         error: "",
         arr: [],
-        converting: false
+        converting: false,
       };
   }
   onChange = (event) => {
@@ -18,8 +18,6 @@ export default class Main extends React.Component {
     const input = event.target.value;
     const validate = /(?=.*\d)^(rp|rp\s)?(([1-9]\d{0,2}(\.\d{3})*)|\d+)?(,0{2})?$/i;
     let error = validate.test(input) || input == '' ? '' : 'Format Invalid';
-
-    // console.log('test',validate.test(input));
     let number = null;
     //parsing
     if(error === ''){
@@ -55,30 +53,35 @@ export default class Main extends React.Component {
       }
     }
     if(sum !== 0 && sum !== null){
-      arr.push(`Rp${sum} left`)
+      arr.push(`Rp${sum} left (no available fraction)`)
     }
     this.setState({converting: false, arr})
   }
   render() {
     const {input, error, arr, converting} = this.state;
     return (
-      <form className="main-form" onSubmit={(e) => this.convert(e)}>
-        <h1 className="main-title">RUPIAH CONVERTER</h1>
-        <InputText
-            onChange={this.onChange}
-            value={input}
-            placeHolder="Input Value Here"
-          />
-          <p style={{color: 'white'}}>{error}</p>
-          <input
-            type="submit"
-            disabled={converting}
-            value="Convert"
-            className="btn btn-primary main-button"/>
-            {arr.map((list,i) => {
-              return <p key={i} className="fractions">{list}</p>
-            })}
-      </form>
+      <div>
+        <div className="side-view">
+          <h1 className="side-title">RUPIAH CONVERTER</h1>
+        </div>
+        <form className="main-form" onSubmit={(e) => this.convert(e)}>
+          <h1 className="main-title">RUPIAH CONVERTER</h1>
+          <InputText
+              onChange={this.onChange}
+              value={input}
+              placeHolder="Input Value Here"
+            />
+            <p style={{color: 'white'}}>{error}</p>
+            <input
+              type="submit"
+              disabled={converting}
+              value="Convert"
+              className="btn btn-primary main-button"/>
+              {arr.map((list,i) => {
+                return <p key={i} className="fractions">{list}</p>
+              })}
+        </form>
+      </div>
     );
   }
 }

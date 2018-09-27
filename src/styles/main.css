@@ -1,17 +1,51 @@
 html, body {
   height: 100%;
-  background-color: #4BB153 !important;
+}
+@media screen and (min-width: 1028px) {
+  .main-form {
+    width:50%;
+  }
+  .main-title {
+    display: none;
+  }
+  .side-view {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 1028px) {
+  .main-form {
+    width:100%;
+  }
+  .side-view {
+    display: none !important;
+  }
+}
+.side-view {
+  vertical-align: top;
+  background-color: #135B85;
+  height: 100vh;
+  padding-top: 30vh;
+  display: inline-block;
+  padding-left: 15%;
+  padding-right: 15%;
 }
 .main-form{
-  width: 100%;
-  height: 100%;
-  padding: 20%;
+  background-color: #4BB153;
+  display: inline-block;
+  height: 100vh;
+  padding-top: 30vh;
+  padding-left: 15%;
+  padding-right: 15%;
 }
 .input-num {
   height: 45px !important;
   margin-top: 10px;
   margin-bottom: 20px;
   border-radius: 4px !important;
+}
+.side-title {
+  text-align: center;
+  color: white;
 }
 .main-title {
   text-align: center;
